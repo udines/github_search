@@ -26,8 +26,9 @@ class SearchStateSuccess extends GithubSearchState {
 
 class SearchStateError extends GithubSearchState {
   final String error;
+  final String details;
 
-  const SearchStateError(this.error);
+  const SearchStateError(this.error, this.details);
 
   @override
   List<Object> get props => [error];

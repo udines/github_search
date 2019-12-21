@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:githubsearch/models/search_result.dart';
 import 'package:githubsearch/models/search_result_error.dart';
@@ -11,11 +12,12 @@ class GithubClient {
 
   GithubClient({
     http.Client httpClient,
-    this.baseUrl = 'https://api.github.com/search/repositories?q='
+    this.baseUrl = "https://api.github.com/search/repositories?q="
   }) : this.httpClient = httpClient ?? http.Client();
 
   Future<SearchResult> search(String term) async {
-    final response = await httpClient.get(Uri.parse('$baseUrl&term'));
+    final response = await httpClient.get(Uri.parse('$baseUrl$term'));
+    log('get: $baseUrl$term');
     final results = json.decode(response.body);
 
     if (response.statusCode == 200) {

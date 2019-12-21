@@ -42,8 +42,8 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
           yield SearchStateSuccess(results.items);
         } catch(error) {
           yield error is SearchResultError
-            ? SearchStateError(error.message)
-            : SearchStateError('Something went wrong');
+            ? SearchStateError(error.message, error.details)
+            : SearchStateError('Something went wrong', '');
         }
       }
     }

@@ -6,7 +6,7 @@ class GithubRepository {
   final GithubClient client;
   final GithubCache cache;
 
-  GithubRepository({this.client, this.cache});
+  GithubRepository(this.client, this.cache);
 
   Future<SearchResult> search(String term) async {
     if (cache.contains(term)) {
