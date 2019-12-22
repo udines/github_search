@@ -1,7 +1,7 @@
 import 'package:githubsearch/models/search_result.dart';
 
 class GithubCache {
-  final _cache = <String, SearchResult>{};
+  final Map<String, SearchResult> _cache = <String, SearchResult>{};
 
   SearchResult get(String term) => _cache[term];
 

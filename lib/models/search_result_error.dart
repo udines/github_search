@@ -1,8 +1,8 @@
 class SearchResultError {
+  const SearchResultError({this.message, this.details});
+
   final String message;
   final String details;
-
-  const SearchResultError({this.message, this.details});
 
   static SearchResultError fromJson(dynamic json) {
     return SearchResultError(

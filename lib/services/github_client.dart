@@ -7,18 +7,18 @@ import 'package:githubsearch/models/search_result_error.dart';
 import 'package:http/http.dart' as http;
 
 class GithubClient {
+  GithubClient({
+    http.Client httpClient,
+    this.baseUrl = 'https://api.github.com/search/repositories?q='
+  }) : httpClient = httpClient ?? http.Client();
+
   final String baseUrl;
   final http.Client httpClient;
 
-  GithubClient({
-    http.Client httpClient,
-    this.baseUrl = "https://api.github.com/search/repositories?q="
-  }) : this.httpClient = httpClient ?? http.Client();
-
   Future<SearchResult> search(String term) async {
-    final response = await httpClient.get(Uri.parse('$baseUrl$term'));
     log('get: $baseUrl$term');
-    final results = json.decode(response.body);
+    final http.Response response = await httpClient.get(Uri.parse('$baseUrl$term'));
+    final Map<String, dynamic> results = json.decode(response.body) as Map<String, dynamic>;
 
     if (response.statusCode == 200) {
       return SearchResult.fromJson(results);

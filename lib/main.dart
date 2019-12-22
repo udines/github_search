@@ -16,9 +16,9 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  final GithubRepository githubRepository;
-
   const App ({Key key,@required this.githubRepository}) : super (key: key);
+
+  final GithubRepository githubRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,10 @@ class App extends StatelessWidget {
       title: 'Github Search',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Github Search'),
+          title: const Text('Github Search'),
         ),
         body: BlocProvider(
-          create: (context) => GithubSearchBloc(githubRepository: githubRepository),
+          create: (BuildContext context) => GithubSearchBloc(githubRepository: githubRepository),
           child: SearchForm(),
         ),
       ),

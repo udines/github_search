@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:githubsearch/bloc/github_search_event.dart';
@@ -23,7 +21,7 @@ class _SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<_SearchBar> {
-  final _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   GithubSearchBloc _githubSearchBloc;
 
   @override
@@ -43,7 +41,7 @@ class _SearchBarState extends State<_SearchBar> {
     return TextField(
       controller: _textController,
       autocorrect: false,
-      onChanged: (text) {
+      onChanged: (String text) {
         _githubSearchBloc.add(
           TextChanged(text)
         );
@@ -62,7 +60,7 @@ class _SearchBarState extends State<_SearchBar> {
 
   void _onClearTapped() {
     _textController.text = '';
-    _githubSearchBloc.add(TextChanged(''));
+    _githubSearchBloc.add(const TextChanged(''));
   }
 }
 
@@ -73,14 +71,14 @@ class _SearchBody extends StatelessWidget {
       bloc: BlocProvider.of<GithubSearchBloc>(context),
       builder: (BuildContext context, GithubSearchState state) {
         if (state is SearchStateEmpty) {
-          return Text('Please enter term to begin');
+          return const Text('Please enter term to begin');
         }
         if (state is SearchStateLoading) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
         if (state is SearchStateSuccess) {
           return state.items.isEmpty
-            ? Text('No Results')
+            ? const Text('No Results')
             : Expanded(child: _SearchResults(items: state.items));
         }
         if (state is SearchStateError) {
@@ -93,9 +91,9 @@ class _SearchBody extends StatelessWidget {
 }
 
 class _SearchResults extends StatelessWidget {
-  final List<SearchResultItem> items;
-
   const _SearchResults({Key key, this.items}) : super(key: key);
+
+  final List<SearchResultItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +107,9 @@ class _SearchResults extends StatelessWidget {
 }
 
 class _SearchResultItem extends StatelessWidget {
-  final SearchResultItem item;
-
   const _SearchResultItem({Key key, @required this.item}) : super(key: key);
+
+  final SearchResultItem item;
 
   @override
   Widget build(BuildContext context) {
